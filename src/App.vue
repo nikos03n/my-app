@@ -13,6 +13,8 @@
     <v-main>
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
+        <h1>helloy vue</h1>
+
         <!-- If using vue-router -->
         <router-view></router-view>
       </v-container>
@@ -46,3 +48,7 @@
   }
 }
 </style>
+
+<script>
+export default {};
+</script>
