@@ -1,54 +1,59 @@
 <template>
   <v-app>
-    <v-navigation-drawer app temporary>
-      <!-- -->
-    </v-navigation-drawer>
+    <div>
+      <v-navigation-drawer app temporary></v-navigation-drawer>
 
-    <v-app-bar app>
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
-    </v-app-bar>
+      <v-toolbar app dark color="primary">
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-    <!-- Sizes your content based upon application components -->
-    <v-main>
-      <!-- Provides the application the proper gutter -->
-      <v-container fluid>
-        <h1>helloy vue</h1>
+        <v-toolbar-title>Title</v-toolbar-title>
 
-        <!-- If using vue-router -->
+        <v-spacer></v-spacer>
+
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+
+        <v-btn icon>
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
+
+        <v-btn icon>
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
+
+        <v-toolbar-items class="my-2">
+          <v-btn depressed large color="primary">{{ greeting }}</v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
+
+      <v-container>
         <router-view></router-view>
       </v-container>
-    </v-main>
+    </div>
 
-    <v-footer app>
-      <!-- -->
-    </v-footer>
+    <v-bar app>
+      <router-link to="/">Home</router-link>|
+      <router-link to="/about">About</router-link>
+    </v-bar>
   </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+module.exports = {
+  data: function () {
+    return {
+      greeting: "Link One",
+    };
+  },
+};
+</script>
+
+<style scoped>
+p {
+  background-color: #d41010a2;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+my-2 {
+  color: #d41010a2;
 }
 </style>
-
-<script>
-export default {};
-</script>
