@@ -3,13 +3,13 @@
     <div>
       <v-navigation-drawer app temporary v-model="drawer">
         <v-list>
-          <v-list-item @click="''">
+          <v-list-item v-for="link of links" :key="link.title" :to="link.url">
             <v-list-item-icon>
-              <v-icon>mdi-star</v-icon>
+              <v-icon>{{link.icon}}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title v-text="'item.title'"></v-list-item-title>
+              <v-list-item-title v-text="link.title"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -22,21 +22,17 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
-
         <v-toolbar-items class="my-2">
-          <v-btn depressed large color="primary">
-            <v-icon left>mdi-set-right</v-icon>Link One
+          <v-btn
+            v-for="link in links"
+            :key="link.title"
+            :to="link.url"
+            depressed
+            large
+            color="primary"
+          >
+            <v-icon left>{{link.icon}}</v-icon>
+            {{link.title}}
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -58,10 +54,19 @@ export default {
   data() {
     return {
       drawer: false,
+      links: [
+        { title: "Login", icon: "mdi-security", url: "/login" },
+        { title: "Registration", icon: "mdi-link", url: "/registration" },
+        { title: "Orders", icon: "mdi-help-box", url: "/orders" },
+        { title: "New ad", icon: "mdi-wifi", url: "/new" },
+        { title: "My ads", icon: "mdi-school-outline", url: "/list" },
+      ],
     };
   },
 };
 </script>
+
+
 
 <style scoped>
 p {
