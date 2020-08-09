@@ -23,7 +23,10 @@
         </v-btn>
 
         <v-toolbar-items class="my-2">
-          <v-btn depressed large color="primary">{{ greeting }}</v-btn>
+          <v-btn depressed large color="primary">
+            <v-icon>mdi-bug-report</v-icon>
+            {{ greeting }}
+          </v-btn>
         </v-toolbar-items>
       </v-toolbar>
 
@@ -52,8 +55,5 @@ module.exports = {
 <style scoped>
 p {
   background-color: #d41010a2;
-}
-my-2 {
-  color: #d41010a2;
 }
 </style>
