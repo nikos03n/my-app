@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <div>
-      <v-navigation-drawer app temporary></v-navigation-drawer>
+      <v-navigation-drawer app temporary v-model="drawer"></v-navigation-drawer>
 
       <v-toolbar app dark color="primary">
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
 
         <v-toolbar-title>Title</v-toolbar-title>
 
@@ -24,8 +24,7 @@
 
         <v-toolbar-items class="my-2">
           <v-btn depressed large color="primary">
-            <v-icon>mdi-bug-report</v-icon>
-            {{ greeting }}
+            <v-icon left>mdi-set-right</v-icon>Link One
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -43,10 +42,10 @@
 </template>
 
 <script>
-module.exports = {
-  data: function () {
+export default {
+  data() {
     return {
-      greeting: "Link One",
+      drawer: false,
     };
   },
 };
