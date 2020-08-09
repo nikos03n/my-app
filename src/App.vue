@@ -1,7 +1,19 @@
 <template>
   <v-app>
     <div>
-      <v-navigation-drawer app temporary v-model="drawer"></v-navigation-drawer>
+      <v-navigation-drawer app temporary v-model="drawer">
+        <v-list>
+          <v-list-item @click="''">
+            <v-list-item-icon>
+              <v-icon>mdi-star</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title v-text="'item.title'"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
 
       <v-toolbar app dark color="primary">
         <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
