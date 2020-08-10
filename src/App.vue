@@ -55,10 +55,10 @@ export default {
     return {
       drawer: false,
       links: [
-        { title: "Login", icon: "mdi-security", url: "/login" },
+        { title: "Login", icon: "lock", url: "/login" },
         { title: "Registration", icon: "mdi-link", url: "/registration" },
-        { title: "Orders", icon: "mdi-help-box", url: "/orders" },
-        { title: "New ad", icon: "mdi-wifi", url: "/new" },
+        { title: "Orders", icon: "bookmark_border", url: "/orders" },
+        { title: "New ad", icon: "note_add", url: "/new" },
         { title: "My ads", icon: "mdi-school-outline", url: "/list" },
       ],
     };
