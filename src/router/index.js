@@ -48,5 +48,5 @@ export default new Router({
       component: Orders
     }
   ],
-  mode: 'history'//упираес # сз браузерной страки
+  mode: 'history'//уbираеt # сз браузерной страки
 })

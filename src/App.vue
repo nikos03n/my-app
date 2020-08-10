@@ -42,10 +42,10 @@
       </v-container>
     </div>
 
-    <v-bar app>
+    <!-- <v-bar app>
       <router-link to="/">Home</router-link>|
       <router-link to="/about">About</router-link>
-    </v-bar>
+    </v-bar>-->
   </v-app>
 </template>
 
