@@ -4,7 +4,7 @@
       <v-layout row>
         <v-flex xs12>
           <v-carousel>
-            <v-carousel-item></v-carousel-item>
+            <v-carousel-item v-for="ad in ads" :key="ad.id" :src="ad.imageSrc"></v-carousel-item>
           </v-carousel>
         </v-flex>
       </v-layout>
