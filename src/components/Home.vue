@@ -9,10 +9,27 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <v-container>
+    <v-container grid-list-lg>
       <v-layout row>
-        <v-flex xs12>
-          <h1>Home</h1>
+        <v-flex xs12 sm6 md4 v-for="ad of ads" :key="ad.id">
+          <v-card class="mx-auto" max-width="400">
+            <v-img class="white--text align-end" height="200px" :src="ad.imageSrc">
+              <v-card-title>Top 10 Australian beaches</v-card-title>
+            </v-img>
+
+            <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
+
+            <v-card-text class="text--primary">
+              <div>{{ad.title}}</div>
+
+              <div>{{ad.description}}</div>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn flat>Open</v-btn>
+              <v-btn raised class="primary">Buy</v-btn>
+            </v-card-actions>
+          </v-card>
         </v-flex>
       </v-layout>
     </v-container>
@@ -26,8 +43,8 @@ export default {
     return {
       ads: [
         {
-          title: "First ad",
-          description: "Hello i am description",
+          title: " Первое объявление",
+          description: "Описание",
           promo: false,
           imageSrc: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
           id: "123",
