@@ -39,6 +39,12 @@
             <v-switch label="Add to promo?" v-model="promo" color="primary"></v-switch>
           </v-flex>
         </v-layout>
+        <v-layout row>
+          <v-flex xs12>
+            <v-spacer></v-spacer>
+            <v-btn :disabled="!valid" class="success" @click="createAd">Create ad</v-btn>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>
@@ -47,7 +53,26 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      title: "",
+      description: "",
+      promo: false,
+      valid: false,
+    };
+  },
+  methods: {
+    createAd() {
+      if (this.$refs.form.validate()) {
+        // logic
+        const ad = {
+          title: this.title,
+          description: this.description,
+          promo: this.promo,
+        };
+
+        console.log(ad);
+      }
+    },
   },
 };
 </script>
