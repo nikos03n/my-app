@@ -2,24 +2,49 @@
   <v-container>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <h1 class="text--secondary mb-3">Orders</h1>
-
-        <v-list two-line subheader>
-          <v-list-tile avatar v-for="order in orders" :key="order.id">
-            <v-list-tile-action>
-              <v-checkbox color="success" :input-value="order.done" @change="markDone(order)"></v-checkbox>
-            </v-list-tile-action>
-
-            <v-list-tile-content>
-              <v-list-tile-title>{{order.name}}</v-list-tile-title>
-              <v-list-tile-sub-title>{{order.phone}}</v-list-tile-sub-title>
-            </v-list-tile-content>
-
-            <v-list-tile-action>
-              <v-btn :to="'/ad/' + order.adId" class="primary">Open</v-btn>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list>
+        <h1 class="text--secondary mb-3">Create new ad</h1>
+        <v-form v-model="valid" ref="form" validation class="mb-3">
+          <v-text-field
+            name="title"
+            label="Ad title"
+            type="text"
+            v-model="title"
+            required
+            :rules="[v => !!v || 'Title is required']"
+          ></v-text-field>
+          <v-text-field
+            name="description"
+            label="Ad description"
+            type="text"
+            v-model="description"
+            multi-line
+            :rules="[v => !!v || 'Description is required']"
+          ></v-text-field>
+        </v-form>
+        <v-layout row class="mb-3">
+          <v-flex xs12>
+            <v-btn class="warning">
+              Upload
+              <v-icon right dark>cloud_upload</v-icon>
+            </v-btn>
+          </v-flex>
+        </v-layout>
+        <v-layout row>
+          <v-flex xs12>
+            <img src height="100" />
+          </v-flex>
+        </v-layout>
+        <v-layout row>
+          <v-flex xs12>
+            <v-switch label="Add to promo?" v-model="promo" color="primary"></v-switch>
+          </v-flex>
+        </v-layout>
+        <v-layout row>
+          <v-flex xs12>
+            <v-spacer></v-spacer>
+            <v-btn :disabled="!valid" class="success" @click="createAd">Create ad</v-btn>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>
@@ -29,20 +54,24 @@
 export default {
   data() {
     return {
-      orders: [
-        {
-          id: "fds3",
-          name: "Vladilen",
-          phone: "8-921-121-12-12",
-          adId: "123",
-          done: false,
-        },
-      ],
+      title: "",
+      description: "",
+      promo: false,
+      valid: false,
     };
   },
   methods: {
-    markDone(order) {
-      order.done = true;
+    createAd() {
+      if (this.$refs.form.validate()) {
+        // logic
+        const ad = {
+          title: this.title,
+          description: this.description,
+          promo: this.promo,
+        };
+
+        console.log(ad);
+      }
     },
   },
 };
