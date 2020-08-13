@@ -31,7 +31,12 @@
         </v-layout>
         <v-layout row>
           <v-flex xs12>
-            <img src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg" height="100" />
+            <img src height="100" />
+          </v-flex>
+        </v-layout>
+        <v-layout row>
+          <v-flex xs12>
+            <v-switch label="Add to promo?" v-model="promo" color="primary"></v-switch>
           </v-flex>
         </v-layout>
       </v-flex>
