@@ -38,11 +38,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              @click="onSubmit"
-              :disabled="!valid"
-            >Create account!</v-btn>
+            <v-btn color="primary" @click="onSubmit" :disabled="!valid">Create account!</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -51,40 +47,42 @@
 </template>
 
 <script>
-  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-  export default {
-    data () {
-      return {
-        email: '',
-        password: '',
-        confirmPassword: '',
-        valid: false,
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => emailRegex.test(v) || 'E-mail must be valid'
-        ],
-        passwordRules: [
-          v => !!v || 'Password is required',
-          v => (v && v.length >= 6) || 'Password must be equal or more than 6 characters'
-        ],
-        confirmPasswordRules: [
-          v => !!v || 'Password is required',
-          v => v === this.password || 'Password should match'
-        ]
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      valid: false,
+      emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) => emailRegex.test(v) || "E-mail must be valid",
+      ],
+      passwordRules: [
+        (v) => !!v || "Password is required",
+        (v) =>
+          (v && v.length >= 6) ||
+          "Password must be equal or more than 6 characters",
+      ],
+      confirmPasswordRules: [
+        (v) => !!v || "Password is required",
+        (v) => v === this.password || "Password should match",
+      ],
+    };
+  },
+  methods: {
+    onSubmit() {
+      if (this.$refs.form.validate()) {
+        const user = {
+          email: this.email,
+          password: this.password,
+        };
+
+        this.$store.dispatch("registerUser", user);
       }
     },
-    methods: {
-      onSubmit () {
-        if (this.$refs.form.validate()) {
-          const user = {
-            email: this.email,
-            password: this.password
-          }
-
-          console.log(user)
-        }
-      }
-    }
-  }
+  },
+};
 </script>
