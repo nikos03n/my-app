@@ -68,9 +68,11 @@ export default {
           title: this.title,
           description: this.description,
           promo: this.promo,
+          imageSrc:
+            "https://cdn-images-1.medium.com/max/850/1*nq9cdMxtdhQ0ZGL8OuSCUQ.jpeg",
         };
 
-        console.log(ad);
+        this.$store.dispatch("createAd", ad);
       }
     },
   },
