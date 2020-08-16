@@ -42,6 +42,20 @@
       <v-container>
         <router-view></router-view>
       </v-container>
+
+      <template v-if="error">
+        <v-snackbar
+          :timeout="5000"
+          :multi-line="true"
+          color="error"
+          @input="closeError"
+          :value="true"
+        >
+          {{error}}
+          <v-spacer></v-spacer>
+          <v-btn flat dark @click.native="closeError">Close</v-btn>
+        </v-snackbar>
+      </template>
     </div>
 
     <!-- <v-bar app>
@@ -64,6 +78,16 @@ export default {
         { title: "My ads", icon: "mdi-school-outline", url: "/list" },
       ],
     };
+  },
+  computed: {
+    error() {
+      return this.$store.getters.error;
+    },
+  },
+  methods: {
+    closeError() {
+      this.$store.dispatch("clearError");
+    },
   },
 };
 </script>
