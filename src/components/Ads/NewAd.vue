@@ -42,7 +42,12 @@
         <v-layout row>
           <v-flex xs12>
             <v-spacer></v-spacer>
-            <v-btn :disabled="!valid" class="success" @click="createAd">Create ad</v-btn>
+            <v-btn
+              :loading="loading"
+              :disabled="!valid || loading"
+              class="success"
+              @click="createAd"
+            >Create ad</v-btn>
           </v-flex>
         </v-layout>
       </v-flex>
@@ -60,6 +65,12 @@ export default {
       valid: false,
     };
   },
+  computed: {
+    loading() {
+      return this.$store.getters.loading;
+    },
+  },
+
   methods: {
     createAd() {
       if (this.$refs.form.validate()) {
@@ -72,7 +83,12 @@ export default {
             "https://cdn-images-1.medium.com/max/850/1*nq9cdMxtdhQ0ZGL8OuSCUQ.jpeg",
         };
 
-        this.$store.dispatch("createAd", ad);
+        this.$store
+          .dispatch("createAd", ad)
+          .then(() => {
+            this.$router.push("/list");
+          })
+          .catch(() => {});
       }
     },
   },
