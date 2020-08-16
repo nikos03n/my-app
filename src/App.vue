@@ -2,17 +2,25 @@
   <v-app>
     <div>
       <v-navigation-drawer app temporary v-model="drawer">
-        <v-list>
-          <v-list-item v-for="link of links" :key="link.title" :to="link.url">
-            <v-list-item-icon>
-              <v-icon>{{link.icon}}</v-icon>
-            </v-list-item-icon>
+        <v-list-item v-for="link of links" :key="link.title" :to="link.url">
+          <v-list-item-icon>
+            <v-icon>{{link.icon}}</v-icon>
+          </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title v-text="link.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
+          <v-list-item-content>
+            <v-list-item-title v-text="link.title"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item v-if="isUserLoggedIn" @click="onLogout">
+          <v-list-item-action>
+            <v-icon>exit_to_app</v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <v-list-tile-title v-text="'Logout'"></v-list-tile-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-navigation-drawer>
 
       <v-toolbar app dark color="primary">
@@ -35,6 +43,9 @@
           >
             <v-icon left>{{link.icon}}</v-icon>
             {{link.title}}
+          </v-btn>
+          <v-btn @click="onLogout" flat v-if="isUserLoggedIn" color="primary" depressed>
+            <v-icon left>exit_to_app</v-icon>Logout
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -96,6 +107,10 @@ export default {
   methods: {
     closeError() {
       this.$store.dispatch("clearError");
+    },
+    onLogout() {
+      this.$store.dispatch("logoutUser");
+      this.$router.push("/");
     },
   },
 };
