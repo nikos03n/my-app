@@ -116,6 +116,7 @@ export default {
 };
 </script>
 
+// this.$router.push("/");когда выходим с логина то остается на страници new add (показываем новую сылку или нет)
 
 
 <style scoped>
