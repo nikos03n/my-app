@@ -69,13 +69,6 @@ export default {
         commit('setLoading', false)
         throw error
       }
-      //   const fdValue = await fb.database().ref('ads').push(newAd)
-      // console.log(fdValue)
-      // } catch (error) {
-      //   commit('setError', error.message)
-      //   commit('setLoading', false)
-      //   throw error
-      // }
     }
   },
   getters: {

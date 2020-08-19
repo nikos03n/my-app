@@ -16,7 +16,12 @@ export default {
     }
   },
   actions: {
-    async registerUser({ commit }, { email, password }) {
+    async registerUser({
+      commit
+    }, {
+      email,
+      password
+    }) {
       commit('clearError')
       commit('setLoading', true)
       try {
@@ -29,7 +34,12 @@ export default {
         throw error
       }
     },
-    async loginUser({ commit }, { email, password }) {
+    async loginUser({
+      commit
+    }, {
+      email,
+      password
+    }) {
       commit('clearError')
       commit('setLoading', true)
       try {
@@ -42,10 +52,14 @@ export default {
         throw error
       }
     },
-    autoLoginUser({ commit }, payload) {
+    autoLoginUser({
+      commit
+    }, payload) {
       commit('setUser', new User(payload.uid))
     },
-    logoutUser({ commit }) {
+    logoutUser({
+      commit
+    }) {
       fb.auth().signOut()
       commit('setUser', null)
     }
