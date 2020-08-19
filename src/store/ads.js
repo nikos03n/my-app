@@ -13,29 +13,7 @@ class Ad {
 
 export default {
   state: {
-    ads: [
-      {
-        title: "First ad",
-        description: "Hello i am description",
-        promo: false,
-        imageSrc: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-        id: "123",
-      },
-      {
-        title: "Second ad",
-        description: "Hello i am description",
-        promo: true,
-        imageSrc: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
-        id: "1234",
-      },
-      {
-        title: "Third ad",
-        description: "Hello i am description",
-        promo: true,
-        imageSrc: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
-        id: "12345",
-      },
-    ],
+    ads: [],
   },
 
   mutations: {
@@ -69,6 +47,33 @@ export default {
         commit('setLoading', false)
         throw error
       }
+    },
+    //удалили state чтобы в базуданных перенисти
+    async fetchAds({ commit }) {
+      commit('clearError')
+      commit('setLoading', true)
+
+      // const resultAds = []
+
+      try {
+        const fbVal = await fb.database().ref('ads').once('value')
+        const ads = fbVal.val()
+        console.log(ads)
+        // Object.keys(ads).forEach(key => {
+        //   const ad = ads[key]
+        //   resultAds.push(
+        //     new Ad(ad.title, ad.description, ad.ownerId, ad.imageSrc, ad.promo, key)
+        //   )
+        // })
+
+        // commit('loadAds', resultAds)
+        commit('setLoading', false)
+      } catch (error) {
+        commit('setError', error.message)
+        commit('setLoading', false)
+        throw error
+      }
+
     }
   },
   getters: {
