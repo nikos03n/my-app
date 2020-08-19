@@ -19,6 +19,9 @@ export default {
   mutations: {
     createAd(state, payload) {
       state.ads.push(payload)
+    },
+    loadAds(state, payload) {
+      state.ads = payload
     }
   },
   actions: {
@@ -53,20 +56,20 @@ export default {
       commit('clearError')
       commit('setLoading', true)
 
-      // const resultAds = []
+      const resultAds = []
 
       try {
         const fbVal = await fb.database().ref('ads').once('value')
         const ads = fbVal.val()
-        console.log(ads)
-        // Object.keys(ads).forEach(key => {
-        //   const ad = ads[key]
-        //   resultAds.push(
-        //     new Ad(ad.title, ad.description, ad.ownerId, ad.imageSrc, ad.promo, key)
-        //   )
-        // })
 
-        // commit('loadAds', resultAds)
+        Object.keys(ads).forEach(key => {
+          const ad = ads[key]
+          resultAds.push(
+            new Ad(ad.title, ad.description, ad.ownerId, ad.imageSrc, ad.promo, key)
+          )
+        })
+
+        commit('loadAds', resultAds)
         commit('setLoading', false)
       } catch (error) {
         commit('setError', error.message)
