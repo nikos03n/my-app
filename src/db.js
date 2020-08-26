@@ -6,6 +6,7 @@ import 'firebase/firestore'
 export const db = firebase
     .initializeApp({ projectId: 'FIREBASE_PROJECT_ID' })
     .firestore()
+export const productsRef = db.ref('products');
 
 
 // Export types that exists in Firestore - Uncomment if you need them in your app

@@ -15,7 +15,6 @@ export default {
   state: {
     ads: [],
   },
-
   mutations: {
     createAd(state, payload) {
       state.ads.push(payload)
@@ -51,7 +50,6 @@ export default {
         throw error
       }
     },
-    //удалили state чтобы в базуданных перенисти
     async fetchAds({ commit }) {
       commit('clearError')
       commit('setLoading', true)
@@ -76,7 +74,6 @@ export default {
         commit('setLoading', false)
         throw error
       }
-
     }
   },
   getters: {

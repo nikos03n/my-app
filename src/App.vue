@@ -24,12 +24,10 @@
       </v-navigation-drawer>
 
       <v-toolbar app dark color="primary">
-        <v-app-bar-nav-icon @click="drawer=!drawer" class="hidden-md-and-up"></v-app-bar-nav-icon>
-
+        <v-app-bar-nav-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-app-bar-nav-icon>
         <v-toolbar-title>
           <router-link to="/" tag="span" class="pointer">Ad application</router-link>
         </v-toolbar-title>
-
         <v-spacer></v-spacer>
 
         <v-toolbar-items class="hidden-sm-and-down">
@@ -70,8 +68,8 @@
     </div>
 
     <!-- <v-bar app>
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
+          <router-link to="/">Home</router-link>|
+          <router-link to="/about">About</router-link>
     </v-bar>-->
   </v-app>
 </template>
@@ -98,6 +96,7 @@ export default {
           { title: "My ads", icon: "list", url: "/list" },
         ];
       }
+
       return [
         { title: "Login", icon: "lock", url: "/login" },
         { title: "Registration", icon: "face", url: "/registration" },
@@ -115,9 +114,6 @@ export default {
   },
 };
 </script>
-
-// this.$router.push("/");когда выходим с логина то остается на страници new add (показываем новую сылку или нет)
-
 
 <style scoped>
 .pointer {
