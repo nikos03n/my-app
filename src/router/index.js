@@ -53,5 +53,5 @@ export default new Router({
       beforeEnter: AuthGuard
     }
   ],
-  mode: 'history'//уbираеt # сз браузерной страки
+  mode: 'history'
 })
