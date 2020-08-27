@@ -1,7 +1,7 @@
 import * as fb from 'firebase'
 
 class Ad {
-  constructor(title, description, ownerId, imageSrc = '', promo = false, id = null) {
+  constructor (title, description, ownerId, imageSrc = '', promo = false, id = null) {
     this.title = title
     this.description = description
     this.ownerId = ownerId
@@ -16,15 +16,15 @@ export default {
     ads: []
   },
   mutations: {
-    createAd(state, payload) {
+    createAd (state, payload) {
       state.ads.push(payload)
     },
-    loadAds(state, payload) {
+    loadAds (state, payload) {
       state.ads = payload
     }
   },
   actions: {
-    async createAd({ commit, getters }, payload) {
+    async createAd ({commit, getters}, payload) {
       commit('clearError')
       commit('setLoading', true)
 
@@ -45,6 +45,10 @@ export default {
         const fileData = await fb.storage().ref(`ads/${ad.key}.${imageExt}`).put(image)
         const imageSrc = fileData.metadata.downloadURLs[0]
 
+        await fb.database().ref('ads').child(ad.key).update({
+          imageSrc
+        })
+
         commit('setLoading', false)
         commit('createAd', {
           ...newAd,
@@ -57,7 +61,7 @@ export default {
         throw error
       }
     },
-    async fetchAds({ commit }) {
+    async fetchAds ({commit}) {
       commit('clearError')
       commit('setLoading', true)
 
@@ -84,18 +88,18 @@ export default {
     }
   },
   getters: {
-    ads(state) {
+    ads (state) {
       return state.ads
     },
-    promoAds(state) {
+    promoAds (state) {
       return state.ads.filter(ad => {
         return ad.promo
       })
     },
-    myAds(state) {
+    myAds (state) {
       return state.ads
     },
-    adById(state) {
+    adById (state) {
       return adId => {
         return state.ads.find(ad => ad.id === adId)
       }

@@ -1,121 +1,108 @@
-npm run serve
-<template>
-  <v-container>
-    <v-layout row>
-      <v-flex xs12 sm6 offset-sm3>
-        <h1 class="text--secondary mb-3">Create new ad</h1>
-        <v-form v-model="valid" ref="form" validation class="mb-3">
-          <v-text-field
-            name="title"
-            label="Ad title"
-            type="text"
-            v-model="title"
-            required
-            :rules="[v => !!v || 'Title is required']"
-          ></v-text-field>
-          <v-text-field
-            name="description"
-            label="Ad description"
-            type="text"
-            v-model="description"
-            multi-line
-            :rules="[v => !!v || 'Description is required']"
-          ></v-text-field>
-        </v-form>
-        <v-layout row class="mb-3">
-          <v-flex xs12>
-            <v-btn class="warning" @click="triggerUpload">
-              Upload
-              <v-icon right dark>cloud_upload</v-icon>
-            </v-btn>
-            <input
-              ref="fileInput"
-              type="file"
-              style="display: none;"
-              accept="image/*"
-              @change="onFileChange"
-            >
-          </v-flex>
-        </v-layout>
-        <v-layout row>
-          <v-flex xs12>
-            <img :src="imageSrc" height="100" v-if="imageSrc">
-          </v-flex>
-        </v-layout>
-        <v-layout row>
-          <v-flex xs12>
-            <v-switch
-              label="Add to promo?"
-              v-model="promo"
-              color="primary"
-            ></v-switch>
-          </v-flex>
-        </v-layout>
-        <v-layout row>
-          <v-flex xs12>
-            <v-spacer></v-spacer>
-            <v-btn
-              :loading="loading"
-              :disabled="!valid || !image || loading"
-              class="success"
-              @click="createAd"
-            >
-              Create ad
-            </v-btn>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-    </v-layout>
-  </v-container>
-</template>
+import * as fb from 'firebase'
 
-<script>
-  export default {
-    data () {
-      return {
-        title: '',
-        description: '',
-        promo: false,
-        valid: false,
-        image: null,
-        imageSrc: ''
+class Ad {
+  constructor (title, description, ownerId, imageSrc = '', promo = false, id = null) {
+    this.title = title
+    this.description = description
+    this.ownerId = ownerId
+    this.imageSrc = imageSrc
+    this.promo = promo
+    this.id = id
+  }
+}
+
+export default {
+  state: {
+    ads: []
+  },
+  mutations: {
+    createAd (state, payload) {
+      state.ads.push(payload)
+    },
+    loadAds (state, payload) {
+      state.ads = payload
+    }
+  },
+  actions: {
+    async createAd ({commit, getters}, payload) {
+      commit('clearError')
+      commit('setLoading', true)
+
+      const image = payload.image
+
+      try {
+        const newAd = new Ad(
+          payload.title,
+          payload.description,
+          getters.user.id,
+          '',
+          payload.promo
+        )
+
+        const ad = await fb.database().ref('ads').push(newAd)
+        const imageExt = image.name.slice(image.name.lastIndexOf('.'))
+
+        const fileData = await fb.storage().ref(`ads/${ad.key}.${imageExt}`).put(image)
+        const imageSrc = fileData.metadata.downloadURLs[0]
+
+        await fb.database().ref('ads').child(ad.key).update({
+          imageSrc
+        })
+
+        commit('setLoading', false)
+        commit('createAd', {
+          ...newAd,
+          id: ad.key,
+          imageSrc
+        })
+      } catch (error) {
+        commit('setError', error.message)
+        commit('setLoading', false)
+        throw error
       }
     },
-    computed: {
-      loading () {
-        return this.$store.getters.loading
+    async fetchAds ({commit}) {
+      commit('clearError')
+      commit('setLoading', true)
+
+      const resultAds = []
+
+      try {
+        const fbVal = await fb.database().ref('ads').once('value')
+        const ads = fbVal.val()
+
+        Object.keys(ads).forEach(key => {
+          const ad = ads[key]
+          resultAds.push(
+            new Ad(ad.title, ad.description, ad.ownerId, ad.imageSrc, ad.promo, key)
+          )
+        })
+
+        commit('loadAds', resultAds)
+        commit('setLoading', false)
+      } catch (error) {
+        commit('setError', error.message)
+        commit('setLoading', false)
+        throw error
       }
+    }
+  },
+  getters: {
+    ads (state) {
+      return state.ads
     },
-    methods: {
-      createAd () {
-        if (this.$refs.form.validate() && this.image) {
-          const ad = {
-            title: this.title,
-            description: this.description,
-            promo: this.promo,
-            image: this.image
-          }
-
-          this.$store.dispatch('createAd', ad)
-            .then(() => {
-              this.$router.push('/list')
-            })
-            .catch(() => {})
-        }
-      },
-      triggerUpload () {
-        this.$refs.fileInput.click()
-      },
-      onFileChange (event) {
-        const file = event.target.files[0]
-
-        const reader = new FileReader()
-        reader.onload = e => {
-          this.imageSrc = reader.result
-        }
-        reader.readAsDataURL(file)
-        this.image = file
+    promoAds (state) {
+      return state.ads.filter(ad => {
+        return ad.promo
+      })
+    },
+    myAds (state) {
+      return state.ads
+    },
+    adById (state) {
+      return adId => {
+        return state.ads.find(ad => ad.id === adId)
       }
     }
   }
-</script>
+}
