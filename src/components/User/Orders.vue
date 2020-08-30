@@ -32,23 +32,23 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       orders: [
         {
-          id: "fds3",
-          name: "Vladilen",
-          phone: "8-921-121-12-12",
-          adId: "123",
-          done: false,
-        },
-      ],
-    };
+          id: 'fds3',
+          name: 'Vladilen',
+          phone: '55-55-99',
+          adId: '123',
+          done: false
+        }
+      ]
+    }
   },
   methods: {
-    markDone(order) {
-      order.done = true;
-    },
-  },
-};
+    markDone (order) {
+      order.done = true
+    }
+  }
+}
 </script>

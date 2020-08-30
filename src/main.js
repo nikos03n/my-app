@@ -1,10 +1,10 @@
+import * as fb from 'firebase'
 import Vue from 'vue'
+import { firestorePlugin } from 'vuefire'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import router from './router'
 import store from './store'
-import * as fb from 'firebase'
-import { firestorePlugin } from 'vuefire'
 
 Vue.use(firestorePlugin)
 

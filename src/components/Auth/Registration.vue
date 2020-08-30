@@ -52,52 +52,52 @@
 </template>
 
 <script>
-const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
 
 export default {
-  data() {
+  data () {
     return {
-      email: "",
-      password: "",
-      confirmPassword: "",
+      email: '',
+      password: '',
+      confirmPassword: '',
       valid: false,
       emailRules: [
-        (v) => !!v || "E-mail is required",
-        (v) => emailRegex.test(v) || "E-mail must be valid",
+        (v) => !!v || 'E-mail is required',
+        (v) => emailRegex.test(v) || 'E-mail must be valid'
       ],
       passwordRules: [
-        (v) => !!v || "Password is required",
+        (v) => !!v || 'Password is required',
         (v) =>
           (v && v.length >= 6) ||
-          "Password must be equal or more than 6 characters",
+          'Password must be equal or more than 6 characters'
       ],
       confirmPasswordRules: [
-        (v) => !!v || "Password is required",
-        (v) => v === this.password || "Password should match",
-      ],
-    };
+        (v) => !!v || 'Password is required',
+        (v) => v === this.password || 'Password should match'
+      ]
+    }
   },
   computed: {
-    loading() {
-      return this.$store.getters.loading;
-    },
+    loading () {
+      return this.$store.getters.loading
+    }
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
       if (this.$refs.form.validate()) {
         const user = {
           email: this.email,
-          password: this.password,
-        };
+          password: this.password
+        }
 
         this.$store
-          .dispatch("registerUser", user)
+          .dispatch('registerUser', user)
           .then(() => {
-            this.$router.push("/");
+            this.$router.push('/')
           })
-          .catch(() => {});
+          .catch(() => {})
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>

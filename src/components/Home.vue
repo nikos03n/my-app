@@ -51,17 +51,17 @@
 <script>
 export default {
   computed: {
-    promoAds() {
-      return this.$store.getters.promoAds;
+    promoAds () {
+      return this.$store.getters.promoAds
     },
-    ads() {
-      return this.$store.getters.ads;
+    ads () {
+      return this.$store.getters.ads
     },
-    loading() {
-      return this.$store.getters.loading;
-    },
-  },
-};
+    loading () {
+      return this.$store.getters.loading
+    }
+  }
+}
 </script>
 
 <style scoped>

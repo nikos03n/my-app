@@ -104,6 +104,7 @@ export default {
       const file = event.target.files[0];
 
       const reader = new FileReader();
+      // eslint-disable-next-line no-unused-vars
       reader.onload = (e) => {
         this.imageSrc = reader.result;
       };

@@ -29,13 +29,12 @@
 <script>
 export default {
   computed: {
-    myAds() {
-      return this.$store.getters.myAds;
-    },
-  },
-};
+    myAds () {
+      return this.$store.getters.myAds
+    }
+  }
+}
 </script>
-
 
 info v-btn v-btn--contained v-btn--router theme--light v-size--default {
 

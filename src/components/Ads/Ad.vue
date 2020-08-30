@@ -21,12 +21,12 @@
 
 <script>
 export default {
-  props: ["id"],
+  props: ['id'],
   computed: {
-    ad() {
-      const id = this.id;
-      return this.$store.getters.adById(id);
-    },
-  },
-};
+    ad () {
+      const id = this.id
+      return this.$store.getters.adById(id)
+    }
+  }
+}
 </script>

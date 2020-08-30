@@ -1,7 +1,7 @@
 // Conveniently import this file anywhere to use db
 
-import firebase from 'firebase/app'
-import 'firebase/firestore'
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 export const db = firebase
     .initializeApp({ projectId: 'FIREBASE_PROJECT_ID' })

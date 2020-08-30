@@ -1,7 +1,13 @@
 import * as fb from 'firebase'
 
 class Ad {
-  constructor (title, description, ownerId, imageSrc = '', promo = false, id = null) {
+  // title: any
+  // description: any
+  // ownerId: any
+  // imageSrc: string
+  // promo: boolean
+  // id: any
+  constructor(title, description, ownerId, imageSrc = '', promo = false, id = null) {
     this.title = title
     this.description = description
     this.ownerId = ownerId
@@ -16,15 +22,15 @@ export default {
     ads: []
   },
   mutations: {
-    createAd (state, payload) {
+    createAd(state, payload) {
       state.ads.push(payload)
     },
-    loadAds (state, payload) {
+    loadAds(state, payload) {
       state.ads = payload
     }
   },
   actions: {
-    async createAd ({commit, getters}, payload) {
+    async createAd({ commit, getters }, payload) {
       commit('clearError')
       commit('setLoading', true)
 
@@ -61,7 +67,7 @@ export default {
         throw error
       }
     },
-    async fetchAds ({commit}) {
+    async fetchAds({ commit }) {
       commit('clearError')
       commit('setLoading', true)
 
@@ -88,18 +94,18 @@ export default {
     }
   },
   getters: {
-    ads (state) {
+    ads(state) {
       return state.ads
     },
-    promoAds (state) {
+    promoAds(state) {
       return state.ads.filter(ad => {
         return ad.promo
       })
     },
-    myAds (state) {
+    myAds(state) {
       return state.ads
     },
-    adById (state) {
+    adById(state) {
       return adId => {
         return state.ads.find(ad => ad.id === adId)
       }
