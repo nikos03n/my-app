@@ -1,130 +1,51 @@
 <template>
-  <v-app>
-    <v-navigation-drawer
-      app
-      temporary
-      v-model="drawer"
-    >
-      <v-list>
-        <v-list-tile
-          v-for="link of links"
-          :key="link.title"
-          :to="link.url"
-        >
-          <v-list-tile-action>
-            <v-icon>{{link.icon}}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="link.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile
-          v-if="isUserLoggedIn"
-          @click="onLogout"
-        >
-          <v-list-tile-action>
-            <v-icon>exit_to_app</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="'Logout'"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-toolbar app dark color="primary">
-      <v-toolbar-side-icon
-        @click="drawer = !drawer"
-        class="hidden-md-and-up"
-      ></v-toolbar-side-icon>
-      <v-toolbar-title>
-        <router-link to="/" tag="span" class="pointer">Ad application</router-link>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn
-          v-for="link in links"
-          :key="link.title"
-          :to="link.url"
-          flat
-        >
-          <v-icon left>{{link.icon}}</v-icon>
-          {{link.title}}
-        </v-btn>
-        <v-btn
-          @click="onLogout"
-          flat
-          v-if="isUserLoggedIn"
-        >
-          <v-icon left>exit_to_app</v-icon>
-          Logout
-        </v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
-
-
-    <v-content>
-      <router-view></router-view>
-    </v-content>
-
-    <template v-if="error">
-      <v-snackbar
-        :timeout="5000"
-        :multi-line="true"
-        color="error"
-        @input="closeError"
-        :value="true"
-      >
-        {{error}}
-        <v-btn flat dark @click.native="closeError">Close</v-btn>
-      </v-snackbar>
-    </template>
-  </v-app>
+  <v-container>
+    <v-layout row>
+      <v-flex xs12>
+        <v-card v-if="!loading">
+          <v-card-media
+            :src="ad.imageSrc"
+            height="300px"
+          ></v-card-media>
+          <v-card-text>
+            <h1 class="text--primary">{{ad.title}}</h1>
+            <p>{{ad.description}}</p>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <addEditAdModal :ad="ad"></addEditAdModal>
+            <v-btn class="success">Buy</v-btn>
+          </v-card-actions>
+        </v-card>
+        <div v-else class="text-xs-center">
+          <v-progress-circular
+            indeterminate
+            :size="100"
+            :width="4"
+            color="purple"
+          ></v-progress-circular>
+        </div>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      drawer: false
-    }
-  },
-  computed: {
-    error () {
-      return this.$store.getters.error
-    },
-    isUserLoggedIn () {
-      return this.$store.getters.isUserLoggedIn
-    },
-    links () {
-      if (this.isUserLoggedIn) {
-        return [
-          {title: 'Orders', icon: 'bookmark_border', url: '/orders'},
-          {title: 'New ad', icon: 'note_add', url: '/new'},
-          {title: 'My ads', icon: 'list', url: '/list'}
-        ]
-      }
+import EditAdModal from './EditAdModal'
 
-      return [
-        {title: 'Login', icon: 'lock', url: '/login'},
-        {title: 'Registration', icon: 'face', url: '/registration'}
-      ]
+export default {
+  props: ['id'],
+  computed: {
+    ad () {
+      const id = this.id
+      return this.$store.getters.adById(id)
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   },
-  methods: {
-    closeError () {
-      this.$store.dispatch('clearError')
-    },
-    onLogout () {
-      this.$store.dispatch('logoutUser')
-      this.$router.push('/')
-    }
+  components: {
+    addEditAdModal: EditAdModal
   }
 }
 </script>
-
-<style scoped>
-  .pointer {
-    cursor: pointer;
-  }
-</style>
