@@ -3,11 +3,12 @@ import Vue from 'vue'
 import { firestorePlugin } from 'vuefire'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
+import BuyModalComponent from '@/components/Shared/BuyModal'
 import router from './router'
 import store from './store'
 
 Vue.use(firestorePlugin)
-
+Vue.component('app-buy-modal', BuyModalComponent)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
