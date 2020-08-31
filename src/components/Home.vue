@@ -42,7 +42,12 @@
     <v-container>
       <v-layout row>
         <v-flex xs12 class="text-xs-center pt-5">
-          <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
+          <v-progress-circular 
+          indeterminate 
+          :size="100" 
+          :width="4" 
+          color="purple"
+          ></v-progress-circular>
         </v-flex>
       </v-layout>
     </v-container>
@@ -51,17 +56,17 @@
 <script>
 export default {
   computed: {
-    promoAds () {
-      return this.$store.getters.promoAds
+    promoAds() {
+      return this.$store.getters.promoAds;
     },
-    ads () {
-      return this.$store.getters.ads
+    ads() {
+      return this.$store.getters.ads;
     },
-    loading () {
-      return this.$store.getters.loading
-    }
-  }
-}
+    loading() {
+      return this.$store.getters.loading;
+    },
+  },
+};
 </script>
 
 <style scoped>

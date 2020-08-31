@@ -21,13 +21,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Ad = // title: any
-// description: any
-// ownerId: any
-// imageSrc: string
-// promo: boolean
-// id: any
-function Ad(title, description, ownerId) {
+var Ad = function Ad(title, description, ownerId) {
   var imageSrc = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
   var promo = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
   var id = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : null;
@@ -78,34 +72,38 @@ var _default = {
 
             case 12:
               fileData = _context.sent;
-              imageSrc = fileData.metadata.downloadURLs[0];
-              _context.next = 16;
+              _context.next = 15;
+              return regeneratorRuntime.awrap(fb.storage().ref().child(fileData.ref.fullPath).getDownloadURL());
+
+            case 15:
+              imageSrc = _context.sent;
+              _context.next = 18;
               return regeneratorRuntime.awrap(fb.database().ref('ads').child(ad.key).update({
                 imageSrc: imageSrc
               }));
 
-            case 16:
+            case 18:
               commit('setLoading', false);
               commit('createAd', _objectSpread({}, newAd, {
                 id: ad.key,
                 imageSrc: imageSrc
               }));
-              _context.next = 25;
+              _context.next = 27;
               break;
 
-            case 20:
-              _context.prev = 20;
+            case 22:
+              _context.prev = 22;
               _context.t0 = _context["catch"](4);
               commit('setError', _context.t0.message);
               commit('setLoading', false);
               throw _context.t0;
 
-            case 25:
+            case 27:
             case "end":
               return _context.stop();
           }
         }
-      }, null, null, [[4, 20]]);
+      }, null, null, [[4, 22]]);
     },
     fetchAds: function fetchAds(_ref2) {
       var commit, resultAds, fbVal, ads;
