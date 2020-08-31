@@ -2,7 +2,7 @@
   <v-row justify="center">
     <v-dialog v-model="modal" persistent max-width="400">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="warning" flat v-bind="attrs" v-on="on">Edit</v-btn>
+        <v-btn class="warning" v-bind="attrs" v-on="on">Edit</v-btn>
       </template>
       <v-card>
         <v-container>
@@ -33,8 +33,8 @@
             <v-flex xs12>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn flat @click="onCancel">Cancel</v-btn>
-                <v-btn class="success" flat @click="onSave">Save</v-btn>
+                <v-btn @click="onCancel">Cancel</v-btn>
+                <v-btn class="success" @click="onSave">Save</v-btn>
               </v-card-actions>
             </v-flex>
           </v-layout>

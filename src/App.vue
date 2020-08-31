@@ -23,7 +23,7 @@
         </v-list-item>
       </v-navigation-drawer>
 
-      <v-toolbar app dark color="primary">
+      <v-toolbar dark color="primary">
         <v-app-bar-nav-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-app-bar-nav-icon>
         <v-toolbar-title>
           <router-link to="/" tag="span" class="pointer">Ad application</router-link>
@@ -42,7 +42,7 @@
             <v-icon left>{{link.icon}}</v-icon>
             {{link.title}}
           </v-btn>
-          <v-btn @click="onLogout" flat v-if="isUserLoggedIn" color="primary" depressed>
+          <v-btn @click="onLogout" v-if="isUserLoggedIn" color="primary" depressed>
             <v-icon left>exit_to_app</v-icon>Logout
           </v-btn>
         </v-toolbar-items>
@@ -62,15 +62,10 @@
         >
           {{error}}
           <v-spacer></v-spacer>
-          <v-btn flat dark @click.native="closeError">Close</v-btn>
+          <v-btn dark @click.native="closeError">Close</v-btn>
         </v-snackbar>
       </template>
     </div>
-
-    <!-- <v-bar app>
-          <router-link to="/">Home</router-link>|
-          <router-link to="/about">About</router-link>
-    </v-bar>-->
   </v-app>
 </template>
 

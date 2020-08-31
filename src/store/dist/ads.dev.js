@@ -206,8 +206,10 @@ var _default = {
         return ad.promo;
       });
     },
-    myAds: function myAds(state) {
-      return state.ads;
+    myAds: function myAds(state, getters) {
+      return state.ads.filter(function (ad) {
+        return ad.ownerId === getters.user.id;
+      });
     },
     adById: function adById(state) {
       return function (adId) {

@@ -30,7 +30,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat :to="'/ad/' + ad.id">Open</v-btn>
+              <v-btn :to="'/ad/' + ad.id">Open</v-btn>
               <v-btn raised class="primary">Buy</v-btn>
             </v-card-actions>
           </v-card>
@@ -42,12 +42,7 @@
     <v-container>
       <v-layout row>
         <v-flex xs12 class="text-xs-center pt-5">
-          <v-progress-circular 
-          indeterminate 
-          :size="100" 
-          :width="4" 
-          color="purple"
-          ></v-progress-circular>
+          <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
         </v-flex>
       </v-layout>
     </v-container>
