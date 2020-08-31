@@ -3,10 +3,7 @@
     <v-layout row>
       <v-flex xs12>
         <v-card v-if="!loading">
-          <v-card-media
-            :src="ad.imageSrc"
-            height="300px"
-          ></v-card-media>
+          <v-card-media :src="ad.imageSrc" height="300px"></v-card-media>
           <v-card-text>
             <h1 class="text--primary">{{ad.title}}</h1>
             <p>{{ad.description}}</p>
@@ -18,12 +15,7 @@
           </v-card-actions>
         </v-card>
         <div v-else class="text-xs-center">
-          <v-progress-circular
-            indeterminate
-            :size="100"
-            :width="4"
-            color="purple"
-          ></v-progress-circular>
+          <v-progress-circular indeterminate :size="100" :width="4" color="purple"></v-progress-circular>
         </div>
       </v-flex>
     </v-layout>
@@ -31,21 +23,21 @@
 </template>
 
 <script>
-import EditAdModal from './EditAdModal'
+import EditAdModal from "./EditAdModal";
 
 export default {
-  props: ['id'],
+  props: ["id"],
   computed: {
-    ad () {
-      const id = this.id
-      return this.$store.getters.adById(id)
+    ad() {
+      const id = this.id;
+      return this.$store.getters.adById(id);
     },
-    loading () {
-      return this.$store.getters.loading
-    }
+    loading() {
+      return this.$store.getters.loading;
+    },
   },
   components: {
-    addEditAdModal: EditAdModal
-  }
-}
+    addEditAdModal: EditAdModal,
+  },
+};
 </script>
