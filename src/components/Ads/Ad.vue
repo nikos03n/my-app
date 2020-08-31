@@ -3,14 +3,14 @@
     <v-layout row>
       <v-flex xs12>
         <v-card v-if="!loading">
-          <v-card-media :src="ad.imageSrc" height="300px"></v-card-media>
+          <v-img :src="ad.imageSrc" height="300px"></v-img>
           <v-card-text>
             <h1 class="text--primary">{{ad.title}}</h1>
             <p>{{ad.description}}</p>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <addEditAdModal :ad="ad"></addEditAdModal>
+            <addEditAdModal :ad="ad" class="car-link"></addEditAdModal>
             <v-btn class="success">Buy</v-btn>
           </v-card-actions>
         </v-card>
@@ -41,3 +41,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.car-link {
+  margin-left: 600px;
+}
+</style>

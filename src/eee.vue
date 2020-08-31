@@ -1,51 +1,28 @@
 <template>
-  <v-container>
-    <v-layout row>
-      <v-flex xs12>
-        <v-card v-if="!loading">
-          <v-card-media
-            :src="ad.imageSrc"
-            height="300px"
-          ></v-card-media>
-          <v-card-text>
-            <h1 class="text--primary">{{ad.title}}</h1>
-            <p>{{ad.description}}</p>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <addEditAdModal :ad="ad"></addEditAdModal>
-            <v-btn class="success">Buy</v-btn>
-          </v-card-actions>
-        </v-card>
-        <div v-else class="text-xs-center">
-          <v-progress-circular
-            indeterminate
-            :size="100"
-            :width="4"
-            color="purple"
-          ></v-progress-circular>
-        </div>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <v-row justify="center">
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn color="primary" dark v-bind="attrs" v-on="on">Open Dialog</v-btn>
+      </template>
+      <v-card>
+        <v-card-title class="headline">Use Google's location service?</v-card-title>
+        <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
+          <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
 </template>
 
 <script>
-import EditAdModal from './EditAdModal'
-
 export default {
-  props: ['id'],
-  computed: {
-    ad () {
-      const id = this.id
-      return this.$store.getters.adById(id)
-    },
-    loading () {
-      return this.$store.getters.loading
-    }
+  data() {
+    return {
+      dialog: false,
+    };
   },
-  components: {
-    addEditAdModal: EditAdModal
-  }
-}
+};
 </script>
