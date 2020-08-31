@@ -63,9 +63,20 @@ export default {
     },
     onSave() {
       if (this.name !== "" && this.phone !== "") {
-        this.$store.dispatch("createOrder", {});
-
-        this.modal = false;
+        this.localLoading = true;
+        this.$store
+          .dispatch("createOrder", {
+            name: this.name,
+            phone: this.phone,
+            adId: this.ad.id,
+            ownerId: this.ad.ownerId,
+          })
+          .finally(() => {
+            this.name = "";
+            this.phone = "";
+            this.localLoading = false;
+            this.modal = false;
+          });
       }
     },
   },
