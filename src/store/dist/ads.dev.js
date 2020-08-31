@@ -46,16 +46,26 @@ var _default = {
     },
     loadAds: function loadAds(state, payload) {
       state.ads = payload;
+    },
+    updateAd: function updateAd(state, _ref) {
+      var title = _ref.title,
+          description = _ref.description,
+          id = _ref.id;
+      var ad = state.ads.find(function (a) {
+        return a.id === id;
+      });
+      ad.title = title;
+      ad.description = description;
     }
   },
   actions: {
-    createAd: function createAd(_ref, payload) {
+    createAd: function createAd(_ref2, payload) {
       var commit, getters, image, newAd, ad, imageExt, fileData, imageSrc;
       return regeneratorRuntime.async(function createAd$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              commit = _ref.commit, getters = _ref.getters;
+              commit = _ref2.commit, getters = _ref2.getters;
               commit('clearError');
               commit('setLoading', true);
               image = payload.image;
@@ -105,13 +115,13 @@ var _default = {
         }
       }, null, null, [[4, 22]]);
     },
-    fetchAds: function fetchAds(_ref2) {
+    fetchAds: function fetchAds(_ref3) {
       var commit, resultAds, fbVal, ads;
       return regeneratorRuntime.async(function fetchAds$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              commit = _ref2.commit;
+              commit = _ref3.commit;
               commit('clearError');
               commit('setLoading', true);
               resultAds = [];
@@ -144,6 +154,47 @@ var _default = {
           }
         }
       }, null, null, [[4, 14]]);
+    },
+    updateAd: function updateAd(_ref4, _ref5) {
+      var commit, title, description, id;
+      return regeneratorRuntime.async(function updateAd$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref4.commit;
+              title = _ref5.title, description = _ref5.description, id = _ref5.id;
+              commit('clearError');
+              commit('setLoading', true);
+              _context3.prev = 4;
+              _context3.next = 7;
+              return regeneratorRuntime.awrap(fb.database().ref('ads').child(id).update({
+                title: title,
+                description: description
+              }));
+
+            case 7:
+              commit('updateAd', {
+                title: title,
+                description: description,
+                id: id
+              });
+              commit('setLoading', false);
+              _context3.next = 16;
+              break;
+
+            case 11:
+              _context3.prev = 11;
+              _context3.t0 = _context3["catch"](4);
+              commit('setError', _context3.t0.message);
+              commit('setLoading', false);
+              throw _context3.t0;
+
+            case 16:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, null, null, [[4, 11]]);
     }
   },
   getters: {

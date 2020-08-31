@@ -18,7 +18,7 @@
           </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-tile-title v-text="'Logout'"></v-list-tile-title>
+            <v-list-item-title v-text="'Logout'"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-navigation-drawer>
