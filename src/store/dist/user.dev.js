@@ -15,113 +15,108 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Order = function Order(name, phone, adId) {
-  var done = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-  var id = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+var User = function User(id) {
+  _classCallCheck(this, User);
 
-  _classCallCheck(this, Order);
-
-  this.name = name;
-  this.phone = phone;
-  this.adId = adId;
-  this.done = done;
   this.id = id;
 };
 
 var _default = {
   state: {
-    orders: []
+    user: null
   },
   mutations: {
-    loadOrders: function loadOrders(state, payload) {
-      state.orders = payload;
+    setUser: function setUser(state, payload) {
+      state.user = payload;
     }
   },
   actions: {
-    createOrder: function createOrder(_ref, _ref2) {
-      var commit, name, phone, adId, ownerId, order;
-      return regeneratorRuntime.async(function createOrder$(_context) {
+    registerUser: function registerUser(_ref, _ref2) {
+      var commit, email, password, user;
+      return regeneratorRuntime.async(function registerUser$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
-              name = _ref2.name, phone = _ref2.phone, adId = _ref2.adId, ownerId = _ref2.ownerId;
-              order = new Order(name, phone, adId);
+              email = _ref2.email, password = _ref2.password;
               commit('clearError');
+              commit('setLoading', true);
               _context.prev = 4;
               _context.next = 7;
-              return regeneratorRuntime.awrap(fb.database().ref("/users/".concat(ownerId, "/orders")).push(order));
+              return regeneratorRuntime.awrap(fb.auth().createUserWithEmailAndPassword(email, password));
 
             case 7:
-              _context.next = 13;
+              user = _context.sent;
+              commit('setUser', new User(user.uid));
+              commit('setLoading', false);
+              _context.next = 17;
               break;
 
-            case 9:
-              _context.prev = 9;
+            case 12:
+              _context.prev = 12;
               _context.t0 = _context["catch"](4);
+              commit('setLoading', false);
               commit('setError', _context.t0.message);
               throw _context.t0;
 
-            case 13:
+            case 17:
             case "end":
               return _context.stop();
           }
         }
-      }, null, null, [[4, 9]]);
+      }, null, null, [[4, 12]]);
     },
-    fetchOrders: function fetchOrders(_ref3) {
-      var commit, getters, resultOrders, fbVal, orders;
-      return regeneratorRuntime.async(function fetchOrders$(_context2) {
+    loginUser: function loginUser(_ref3, _ref4) {
+      var commit, email, password, user;
+      return regeneratorRuntime.async(function loginUser$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              commit = _ref3.commit, getters = _ref3.getters;
-              commit('setLoading', true);
+              commit = _ref3.commit;
+              email = _ref4.email, password = _ref4.password;
               commit('clearError');
-              resultOrders = [];
+              commit('setLoading', true);
               _context2.prev = 4;
               _context2.next = 7;
-              return regeneratorRuntime.awrap(fb.database().ref("/users/".concat(getters.user.id, "/orders")).once('value'));
+              return regeneratorRuntime.awrap(fb.auth().signInWithEmailAndPassword(email, password));
 
             case 7:
-              fbVal = _context2.sent;
-              orders = fbVal.val();
-              Object.keys(orders).forEach(function (key) {
-                var o = orders[key];
-                resultOrders.push(new Order(o.name, o.phone, o.adId, o.done, key));
-              });
-              commit('loadOrders', resultOrders);
+              user = _context2.sent;
+              commit('setUser', new User(user.uid));
               commit('setLoading', false);
-              _context2.next = 18;
+              _context2.next = 17;
               break;
 
-            case 14:
-              _context2.prev = 14;
+            case 12:
+              _context2.prev = 12;
               _context2.t0 = _context2["catch"](4);
               commit('setLoading', false);
               commit('setError', _context2.t0.message);
+              throw _context2.t0;
 
-            case 18:
+            case 17:
             case "end":
               return _context2.stop();
           }
         }
-      }, null, null, [[4, 14]]);
+      }, null, null, [[4, 12]]);
+    },
+    autoLoginUser: function autoLoginUser(_ref5, payload) {
+      var commit = _ref5.commit;
+      commit('setUser', new User(payload.uid));
+    },
+    logoutUser: function logoutUser(_ref6) {
+      var commit = _ref6.commit;
+      fb.auth().signOut();
+      commit('setUser', null);
     }
   },
   getters: {
-    doneOrders: function doneOrders(state) {
-      return state.orders.filter(function (o) {
-        return o.done;
-      });
+    user: function user(state) {
+      return state.user;
     },
-    undoneOrders: function undoneOrders(state) {
-      return state.orders.filter(function (o) {
-        return !o.done;
-      });
-    },
-    orders: function orders(state, getters) {
-      return getters.undoneOrders.concat(getters.doneOrders);
+    isUserLoggedIn: function isUserLoggedIn(state) {
+      return state.user !== null;
     }
   }
 };

@@ -30,7 +30,41 @@ export default {
         commit('setError', error.message)
         throw error
       }
-    }
+    },
+    async fetchOrders({ commit, getters }) {
+      commit('setLoading', true)
+      commit('clearError')
+
+      const resultOrders = []
+
+      try {
+        const fbVal = await fb.database().ref(`/users/${getters.user.id}/orders`).once('value')
+        const orders = fbVal.val()
+
+        Object.keys(orders).forEach(key => {
+          const o = orders[key]
+          resultOrders.push(
+            new Order(o.name, o.phone, o.adId, o.done, key)
+          )
+        })
+
+        commit('loadOrders', resultOrders)
+        commit('setLoading', false)
+      } catch (error) {
+        commit('setLoading', false)
+        commit('setError', error.message)
+      }
+    },
   },
-  getters: {}
+  getters: {
+    doneOrders(state) {
+      return state.orders.filter(o => o.done)
+    },
+    undoneOrders(state) {
+      return state.orders.filter(o => !o.done)
+    },
+    orders(state, getters) {
+      return getters.undoneOrders.concat(getters.doneOrders)
+    }
+  }
 }
