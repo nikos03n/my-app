@@ -8,7 +8,7 @@ var _vue = _interopRequireDefault(require("vue"));
 
 var _vuefire = require("vuefire");
 
-var _App = _interopRequireDefault(require("./App.vue"));
+var _App = _interopRequireDefault(require("@/App.vue"));
 
 var _vuetify = _interopRequireDefault(require("./plugins/vuetify"));
 

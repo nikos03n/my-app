@@ -37,7 +37,7 @@
 
 <script>
 export default {
-   computed: {
+  computed: {
     loading() {
       return this.$store.getters.loading;
     },
@@ -47,11 +47,16 @@ export default {
   },
   methods: {
     markDone(order) {
-      order.done = true;
+      this.$store
+        .dispatch("markOrderDone", order.id)
+        .then(() => {
+          order.done = true;
+        })
+        .catch(() => {});
     },
-    created() {
-      this.$store.dispatch("fetchOrders");
-    },
+  },
+  created() {
+    this.$store.dispatch("fetchOrders");
   },
 };
 </script>

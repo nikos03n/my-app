@@ -1,7 +1,7 @@
 import * as fb from 'firebase'
 import Vue from 'vue'
 import { firestorePlugin } from 'vuefire'
-import App from './App.vue'
+import App from '@/App.vue'
 import vuetify from './plugins/vuetify'
 import BuyModalComponent from '@/components/Shared/BuyModal'
 import router from './router'

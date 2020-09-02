@@ -45,8 +45,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.car-link {
-  margin-left: 600px;
-}
-</style>
+

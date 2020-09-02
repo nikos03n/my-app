@@ -107,6 +107,37 @@ var _default = {
           }
         }
       }, null, null, [[4, 14]]);
+    },
+    markOrderDone: function markOrderDone(_ref4, payload) {
+      var commit, getters;
+      return regeneratorRuntime.async(function markOrderDone$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref4.commit, getters = _ref4.getters;
+              commit('clearError');
+              _context3.prev = 2;
+              _context3.next = 5;
+              return regeneratorRuntime.awrap(fb.database().ref("/users/".concat(getters.user.id, "/orders")).child(payload).update({
+                done: true
+              }));
+
+            case 5:
+              _context3.next = 11;
+              break;
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](2);
+              commit('setError', _context3.t0.message);
+              throw _context3.t0;
+
+            case 11:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, null, null, [[2, 7]]);
     }
   },
   getters: {

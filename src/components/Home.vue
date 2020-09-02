@@ -25,14 +25,15 @@
 
             <v-card-text class="text--primary">
               <div>{{ad.title}}</div>
-
               <div>{{ad.description}}</div>
             </v-card-text>
+
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn :to="'/ad/' + ad.id">Open</v-btn>
               <app-buy-modal :ad="ad"></app-buy-modal>
             </v-card-actions>
+            
           </v-card>
         </v-flex>
       </v-layout>

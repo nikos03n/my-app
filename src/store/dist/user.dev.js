@@ -47,7 +47,7 @@ var _default = {
 
             case 7:
               user = _context.sent;
-              commit('setUser', new User(user.uid));
+              commit('setUser', new User(user.user.uid));
               commit('setLoading', false);
               _context.next = 17;
               break;
@@ -82,7 +82,7 @@ var _default = {
 
             case 7:
               user = _context2.sent;
-              commit('setUser', new User(user.uid));
+              commit('setUser', new User(user.user.uid));
               commit('setLoading', false);
               _context2.next = 17;
               break;
