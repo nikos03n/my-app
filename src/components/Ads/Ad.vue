@@ -10,7 +10,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <addEditAdModal :ad="ad" v-if="isOwner" class="car-link"></addEditAdModal>
+            <addEditAdModal :ad="ad" v-if="isOwner"></addEditAdModal>
             <app-buy-modal :ad="ad"></app-buy-modal>
           </v-card-actions>
         </v-card>
@@ -45,4 +45,9 @@ export default {
 };
 </script>
 
-
+<style scoped>
+.car-link {
+  left: 90%;
+  transform: translate(10%);
+}
+</style>
