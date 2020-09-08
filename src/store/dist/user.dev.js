@@ -103,6 +103,7 @@ var _default = {
     },
     autoLoginUser: function autoLoginUser(_ref5, payload) {
       var commit = _ref5.commit;
+      console.log('payload:', payload);
       commit('setUser', new User(payload.uid));
     },
     logoutUser: function logoutUser(_ref6) {
